@@ -32,7 +32,7 @@ app.post("/order", (_, res) => {
 });
 
 if (require.main === module) {
-  app.listen(5000, () => console.log("Sundae server listening on port 5000!"));
+  app.listen(4000, () => console.log("Sundae server listening on port 4000!"));
 }
 
 module.exports = app;
