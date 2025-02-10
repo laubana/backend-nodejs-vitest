@@ -2,7 +2,7 @@ const request = require("supertest");
 
 const app = require("./index.js");
 
-describe("Server Test", () => {
+describe("Test", () => {
   beforeEach(async () => {
     server = app.listen(process.env.PORT);
     global.agent = request.agent(server);
@@ -12,8 +12,8 @@ describe("Server Test", () => {
     await server.close();
   });
 
-  describe("Scoops", () => {
-    test("Scoops Status Code Test", () => {
+  describe("Scoops Test", () => {
+    test("Scoops Status Code", () => {
       return request(server)
         .get("/scoops")
         .then((response) => {
@@ -21,7 +21,7 @@ describe("Server Test", () => {
         });
     });
 
-    test("Scoops Test", () => {
+    test("Scoops Data", () => {
       return request(server)
         .get("/scoops")
         .then((response) => {
@@ -34,8 +34,8 @@ describe("Server Test", () => {
     });
   });
 
-  describe("Toppings", () => {
-    test("Toppings Status Code Test", () => {
+  describe("Toppings Test", () => {
+    test("Toppings Status Code", () => {
       return request(server)
         .get("/toppings")
         .then((response) => {
@@ -43,7 +43,7 @@ describe("Server Test", () => {
         });
     });
 
-    test("Toppings Test", () => {
+    test("Toppings Data Test", () => {
       return request(server)
         .get("/toppings")
         .then((response) => {
@@ -56,8 +56,8 @@ describe("Server Test", () => {
     });
   });
 
-  describe("Order", () => {
-    test("Order Status Code Test", () => {
+  describe("Order Test", () => {
+    test("Order Status Code", () => {
       return request(app)
         .post("/order")
         .then((response) => {
@@ -65,7 +65,7 @@ describe("Server Test", () => {
         });
     });
 
-    test("Order Number Test", () => {
+    test("Order Data", () => {
       return request(app)
         .post("/order")
         .then((response) => {
