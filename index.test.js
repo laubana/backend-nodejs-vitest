@@ -1,9 +1,10 @@
 const request = require("supertest");
-const app = require("./server.js");
 
-describe("test server", () => {
+const app = require("./index.js");
+
+describe("Server Test", () => {
   beforeEach(async () => {
-    server = await app.listen(4000);
+    server = app.listen(process.env.PORT);
     global.agent = request.agent(server);
   });
 
@@ -11,8 +12,8 @@ describe("test server", () => {
     await server.close();
   });
 
-  describe("ice cream flavors", () => {
-    test("responds with status 200 the GET method", () => {
+  describe("Scoops", () => {
+    test("Scoops Status Code Test", () => {
       return request(server)
         .get("/scoops")
         .then((response) => {
@@ -20,21 +21,21 @@ describe("test server", () => {
         });
     });
 
-    test("response has expected number of ice cream flavors, and each has a name and image", () => {
+    test("Scoops Test", () => {
       return request(server)
         .get("/scoops")
         .then((response) => {
-          expect(response.body.length).toBe(4);
-          response.body.forEach((flavor) => {
+          expect(response.body.data.length).toBe(4);
+          response.body.data.forEach((flavor) => {
             expect(typeof flavor.name).toBe("string");
-            expect(typeof flavor.imagePath).toBe("string");
+            expect(typeof flavor.imageUrl).toBe("string");
           });
         });
     });
   });
 
-  describe("toppings", () => {
-    test("responds with status 200 the GET method", () => {
+  describe("Toppings", () => {
+    test("Toppings Status Code Test", () => {
       return request(server)
         .get("/toppings")
         .then((response) => {
@@ -42,21 +43,21 @@ describe("test server", () => {
         });
     });
 
-    test("response has expected number of ice cream toppings, and each has a name and image", () => {
+    test("Toppings Test", () => {
       return request(server)
         .get("/toppings")
         .then((response) => {
-          expect(response.body.length).toBe(6);
-          response.body.forEach((topping) => {
+          expect(response.body.data.length).toBe(6);
+          response.body.data.forEach((topping) => {
             expect(typeof topping.name).toBe("string");
-            expect(typeof topping.imagePath).toBe("string");
+            expect(typeof topping.imageUrl).toBe("string");
           });
         });
     });
   });
 
-  describe("order number generator", () => {
-    test("returns 201 for POST", () => {
+  describe("Order", () => {
+    test("Order Status Code Test", () => {
       return request(app)
         .post("/order")
         .then((response) => {
@@ -64,11 +65,11 @@ describe("test server", () => {
         });
     });
 
-    test('returns random "order number" for POST', () => {
+    test("Order Number Test", () => {
       return request(app)
         .post("/order")
         .then((response) => {
-          const orderNumber = response.body.orderNumber;
+          const orderNumber = response.body.data.orderNumber;
           expect(orderNumber).toBeLessThan(10000000000);
           expect(orderNumber).toBeGreaterThan(0);
         });
